@@ -18,6 +18,8 @@ func main() {
 	switch args[0] {
 	case "-c":
 		countFromFile(args[1], count.Bytes)
+	case "-l":
+		countFromFile(args[1], count.Lines)
 	}
 }
 
