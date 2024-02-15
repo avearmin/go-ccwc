@@ -20,6 +20,8 @@ func main() {
 		countFromFile(args[1], count.Bytes)
 	case "-l":
 		countFromFile(args[1], count.Lines)
+	case "-w":
+		countFromFile(args[1], count.Words)
 	}
 }
 
