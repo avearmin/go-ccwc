@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -27,10 +28,11 @@ func main() {
 
 func countFromFile(fileName string, f count.CountingFunc) {
 	file, err := os.Open(fileName)
+	scnr := bufio.NewScanner(file)
 	if err != nil {
 		log.Fatalf("wc: %s: open: no such file or directory", fileName)
 	}
-	n, err := f(file)
+	n := f(scnr)
 	if err != nil {
 		log.Fatal(err)
 	}

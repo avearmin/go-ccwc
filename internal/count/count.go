@@ -1,36 +1,42 @@
 package count
 
 import (
-	"io"
+	"bufio"
 	"strings"
 )
 
-type CountingFunc func(io.Reader) (int, error)
+type CountingFunc func(*bufio.Scanner) int
 
-func Bytes(r io.Reader) (int, error) {
-	data, err := io.ReadAll(r)
-	if err != nil {
-		return 0, err
+func Bytes(scnr *bufio.Scanner) int {
+	scnr.Split(bufio.ScanBytes)
+
+	var count int
+	for scnr.Scan() {
+		count++
 	}
-	return len(data), nil
+	return count
 }
 
-func Lines(r io.Reader) (int, error) {
-	data, err := io.ReadAll(r)
-	if err != nil {
-		return 0, err
+func Lines(scnr *bufio.Scanner) int {
+	scnr.Split(bufio.ScanLines)
+
+	var count int
+	for scnr.Scan() {
+		count++
 	}
-	lines := strings.Split(string(data), "\n")
-	return len(lines), nil
+	return count
 }
 
-func Words(r io.Reader) (int, error) {
-	data, err := io.ReadAll(r)
-	if err != nil {
-		return 0, err
-	}
-	stringData := strings.ReplaceAll(string(data), "\n", " ")
-	words := strings.Split(stringData, " ")
-	return len(words), nil
+func Words(scnr *bufio.Scanner) int {
+	scnr.Split(bufio.ScanWords)
 
+	var count int
+	for scnr.Scan() {
+		word := scnr.Text()
+		if strings.TrimSpace(word) == "" {
+			continue
+		}
+		count++
+	}
+	return count
 }
