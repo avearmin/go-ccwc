@@ -77,3 +77,27 @@ func TestWords(t *testing.T) {
 		})
 	}
 }
+
+func TestRunes(t *testing.T) {
+	tests := map[string]struct {
+		input *bufio.Scanner
+		want  int
+	}{
+		"3 lines": {
+			bufio.NewScanner(strings.NewReader("Hello world!\nHello universe!\nHello multiverse!")),
+			46,
+		},
+		"1 lines": {
+			bufio.NewScanner(strings.NewReader("")),
+			0,
+		},
+	}
+
+	for name, test := range tests {
+		t.Run(name, func(t *testing.T) {
+			if got := Runes(test.input); test.want != got {
+				t.Errorf("FAIL want: %2d got: %2d", test.want, got)
+			}
+		})
+	}
+}

@@ -23,6 +23,8 @@ func main() {
 		countFromFile(args[1], count.Lines)
 	case "-w":
 		countFromFile(args[1], count.Words)
+	case "-m":
+		countFromFile(args[1], count.Runes)
 	}
 }
 

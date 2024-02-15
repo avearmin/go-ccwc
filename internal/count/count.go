@@ -40,3 +40,13 @@ func Words(scnr *bufio.Scanner) int {
 	}
 	return count
 }
+
+func Runes(scnr *bufio.Scanner) int {
+	scnr.Split(bufio.ScanRunes)
+
+	var count int
+	for scnr.Scan() {
+		count++
+	}
+	return count
+}
