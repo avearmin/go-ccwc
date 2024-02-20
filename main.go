@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/avearmin/go-ccwc/internal/count"
 	"log"
 	"os"
-
-	"github.com/avearmin/go-ccwc/internal/count"
 )
 
 func main() {
@@ -52,7 +51,7 @@ func printAllCountsFromFile(fileName string) {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%8d %8d %8d %s", byteCount, lineCount, wordCount, fileName)
+	fmt.Printf("%8d %8d %8d %s", lineCount, wordCount, byteCount, fileName)
 }
 
 func countFromFile(fileName string, f count.CountingFunc) (int, error) {

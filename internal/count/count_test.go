@@ -83,11 +83,11 @@ func TestRunes(t *testing.T) {
 		input io.Reader
 		want  int
 	}{
-		"3 lines": {
+		"46 runes": {
 			strings.NewReader("Hello world!\nHello universe!\nHello multiverse!"),
 			46,
 		},
-		"1 lines": {
+		"0 runes": {
 			strings.NewReader(""),
 			0,
 		},
