@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -12,31 +11,61 @@ import (
 func main() {
 	args := os.Args[1:]
 
-	if len(args) < 2 {
+	if len(args) < 1 {
 		return
 	}
 
 	switch args[0] {
 	case "-c":
-		countFromFile(args[1], count.Bytes)
+		printCountFromFile(args[1], count.Bytes)
 	case "-l":
-		countFromFile(args[1], count.Lines)
+		printCountFromFile(args[1], count.Lines)
 	case "-w":
-		countFromFile(args[1], count.Words)
+		printCountFromFile(args[1], count.Words)
 	case "-m":
-		countFromFile(args[1], count.Runes)
+		printCountFromFile(args[1], count.Runes)
+	default:
+		printAllCountsFromFile(args[0])
 	}
 }
 
-func countFromFile(fileName string, f count.CountingFunc) {
-	file, err := os.Open(fileName)
-	scnr := bufio.NewScanner(file)
-	if err != nil {
-		log.Fatalf("wc: %s: open: no such file or directory", fileName)
-	}
-	n := f(scnr)
+func printCountFromFile(fileName string, f count.CountingFunc) {
+	n, err := countFromFile(fileName, f)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Printf("%8d %s", n, fileName)
+}
+
+func printAllCountsFromFile(fileName string) {
+	byteCount, err := countFromFile(fileName, count.Bytes)
+	if err != nil {
+		log.Fatal(err)
+	}
+	lineCount, err := countFromFile(fileName, count.Lines)
+	if err != nil {
+		log.Fatal(err)
+	}
+	wordCount, err := countFromFile(fileName, count.Words)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%8d %8d %8d %s", byteCount, lineCount, wordCount, fileName)
+}
+
+func countFromFile(fileName string, f count.CountingFunc) (int, error) {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return 0, fmt.Errorf("wc: %s: open: no such file or directory", fileName)
+	}
+
+	n := f(file)
+
+	if err = file.Close(); err != nil {
+		return 0, err
+	}
+
+	return n, nil
 }

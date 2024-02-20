@@ -1,22 +1,22 @@
 package count
 
 import (
-	"bufio"
+	"io"
 	"strings"
 	"testing"
 )
 
 func TestBytes(t *testing.T) {
 	tests := map[string]struct {
-		input *bufio.Scanner
+		input io.Reader
 		want  int
 	}{
 		"12 bytes": {
-			bufio.NewScanner(strings.NewReader("Hello world!")),
+			strings.NewReader("Hello world!"),
 			12,
 		},
 		"0 bytes": {
-			bufio.NewScanner(strings.NewReader("")),
+			strings.NewReader(""),
 			0,
 		},
 	}
@@ -32,15 +32,15 @@ func TestBytes(t *testing.T) {
 
 func TestLines(t *testing.T) {
 	tests := map[string]struct {
-		input *bufio.Scanner
+		input io.Reader
 		want  int
 	}{
 		"3 lines": {
-			bufio.NewScanner(strings.NewReader("Hello world!\nHello universe!\nHello multiverse!")),
+			strings.NewReader("Hello world!\nHello universe!\nHello multiverse!"),
 			3,
 		},
 		"1 lines": {
-			bufio.NewScanner(strings.NewReader("")),
+			strings.NewReader(""),
 			0,
 		},
 	}
@@ -56,15 +56,15 @@ func TestLines(t *testing.T) {
 
 func TestWords(t *testing.T) {
 	tests := map[string]struct {
-		input *bufio.Scanner
+		input io.Reader
 		want  int
 	}{
 		"6 words": {
-			bufio.NewScanner(strings.NewReader("Hello world!\nHello universe!\nHello multiverse!")),
+			strings.NewReader("Hello world!\nHello universe!\nHello multiverse!"),
 			6,
 		},
 		"0 words": {
-			bufio.NewScanner(strings.NewReader("")),
+			strings.NewReader(""),
 			0,
 		},
 	}
@@ -80,15 +80,15 @@ func TestWords(t *testing.T) {
 
 func TestRunes(t *testing.T) {
 	tests := map[string]struct {
-		input *bufio.Scanner
+		input io.Reader
 		want  int
 	}{
 		"3 lines": {
-			bufio.NewScanner(strings.NewReader("Hello world!\nHello universe!\nHello multiverse!")),
+			strings.NewReader("Hello world!\nHello universe!\nHello multiverse!"),
 			46,
 		},
 		"1 lines": {
-			bufio.NewScanner(strings.NewReader("")),
+			strings.NewReader(""),
 			0,
 		},
 	}

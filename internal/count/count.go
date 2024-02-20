@@ -2,12 +2,14 @@ package count
 
 import (
 	"bufio"
+	"io"
 	"strings"
 )
 
-type CountingFunc func(*bufio.Scanner) int
+type CountingFunc func(reader io.Reader) int
 
-func Bytes(scnr *bufio.Scanner) int {
+func Bytes(r io.Reader) int {
+	scnr := bufio.NewScanner(r)
 	scnr.Split(bufio.ScanBytes)
 
 	var count int
@@ -17,7 +19,8 @@ func Bytes(scnr *bufio.Scanner) int {
 	return count
 }
 
-func Lines(scnr *bufio.Scanner) int {
+func Lines(r io.Reader) int {
+	scnr := bufio.NewScanner(r)
 	scnr.Split(bufio.ScanLines)
 
 	var count int
@@ -27,7 +30,8 @@ func Lines(scnr *bufio.Scanner) int {
 	return count
 }
 
-func Words(scnr *bufio.Scanner) int {
+func Words(r io.Reader) int {
+	scnr := bufio.NewScanner(r)
 	scnr.Split(bufio.ScanWords)
 
 	var count int
@@ -41,7 +45,8 @@ func Words(scnr *bufio.Scanner) int {
 	return count
 }
 
-func Runes(scnr *bufio.Scanner) int {
+func Runes(r io.Reader) int {
+	scnr := bufio.NewScanner(r)
 	scnr.Split(bufio.ScanRunes)
 
 	var count int
