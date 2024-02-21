@@ -9,6 +9,13 @@ import (
 	"os"
 )
 
+func IsValidFlag(flag string) bool {
+	flags := map[string]bool{"-c": true, "-l": true, "-w": true, "-m": true}
+	ok := flags[flag]
+	return ok
+
+}
+
 func HandleStdinFlags(flag string) {
 	switch flag {
 	case "-c":
