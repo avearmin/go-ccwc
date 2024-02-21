@@ -12,6 +12,8 @@ func main() {
 		command.PrintAllCountsFromStdin()
 	} else if len(args) == 1 && command.IsValidFlag(args[0]) {
 		command.HandleStdinFlags(args[0])
+	} else if len(args) == 1 {
+		command.PrintAllCountsFromFile(args[0])
 	} else if len(args) == 2 && command.IsValidFlag(args[0]) {
 		command.HandleFileFlags(args[0], args[1])
 	} else {

@@ -39,8 +39,6 @@ func HandleFileFlags(flag, fileName string) {
 		printCountFromFile(fileName, count.Words)
 	case "-m":
 		printCountFromFile(fileName, count.Runes)
-	default:
-		printAllCountsFromFile(fileName)
 	}
 }
 
@@ -53,7 +51,7 @@ func printCountFromFile(fileName string, f count.CountingFunc) {
 	fmt.Printf("%8d %s\n", n, fileName)
 }
 
-func printAllCountsFromFile(fileName string) {
+func PrintAllCountsFromFile(fileName string) {
 	byteCount, err := countFromFile(fileName, count.Bytes)
 	if err != nil {
 		log.Fatal(err)
